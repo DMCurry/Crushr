@@ -6,6 +6,7 @@ from sqlalchemy.exc import OperationalError, ProgrammingError
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import text
 from sqlalchemy import MetaData
+from models import Base
 
 
 app = FastAPI()
@@ -18,6 +19,9 @@ DATABASE_URL = "mysql+mysqldb://root:@localhost:3306/mydb"
 
 # Create SQLAlchemy engine
 engine = create_engine(DATABASE_URL)
+
+#Create tables from models
+Base.metadata.create_all(engine)
 
 # Create a session maker
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
