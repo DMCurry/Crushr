@@ -16,7 +16,7 @@ class Exercise(Base):
     __tablename__ = "exercise"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    name: Mapped[str] = mapped_column(String(30), nullable=False)
+    exercise_name: Mapped[str] = mapped_column(String(30), nullable=False)
     description: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     reps: Mapped[int] = mapped_column(Integer, nullable=False)
     schedule_id: Mapped[Optional[int]] = mapped_column(ForeignKey("schedule.id"), nullable=True)

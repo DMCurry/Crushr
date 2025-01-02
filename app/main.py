@@ -20,8 +20,8 @@ DATABASE_URL = "mysql+mysqldb://root:@localhost:3306/mydb"
 # Create SQLAlchemy engine
 engine = create_engine(DATABASE_URL)
 
-#Create tables from models
-Base.metadata.create_all(engine)
+# Create tables from models (Commented out bc it conflicts with alembic managing things now)
+#Base.metadata.create_all(engine)
 
 # Create a session maker
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
