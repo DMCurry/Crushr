@@ -6,7 +6,6 @@ class Base(DeclarativeBase):
 
 from .exercise import Exercise
 from .performance_test import PerformanceTest
-from .schedule import Schedule
-from .schedule_exercise import schedule_exercise
 from .training_plan import TrainingPlan
+from .training_exercise import training_exercise
 from .user import User

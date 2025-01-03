@@ -8,8 +8,8 @@ from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
 from . import Base
-from models.schedule_exercise import schedule_exercise
-from models.schedule import Schedule
+from models.training_exercise import training_exercise
+#from models.training_plan import TrainingPlan
 
 
 class Exercise(Base):
@@ -19,8 +19,8 @@ class Exercise(Base):
     exercise_name: Mapped[str] = mapped_column(String(30), nullable=False)
     description: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     reps: Mapped[int] = mapped_column(Integer, nullable=False)
-    schedule_id: Mapped[Optional[int]] = mapped_column(ForeignKey("schedule.id"), nullable=True)
-    schedules: Mapped[List[Schedule]] = relationship(
-        secondary=schedule_exercise,
+    training_plan_id: Mapped[Optional[int]] = mapped_column(ForeignKey("training_plan.id"), nullable=True)
+    training_plan: Mapped[List["TrainingPlan"]] = relationship(
+        secondary=training_exercise,
         back_populates="exercises"
     )

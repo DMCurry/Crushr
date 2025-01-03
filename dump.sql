@@ -16,29 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `alembic_version`
---
-
-DROP TABLE IF EXISTS `alembic_version`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `alembic_version` (
-  `version_num` varchar(32) NOT NULL,
-  PRIMARY KEY (`version_num`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `alembic_version`
---
-
-LOCK TABLES `alembic_version` WRITE;
-/*!40000 ALTER TABLE `alembic_version` DISABLE KEYS */;
-INSERT INTO `alembic_version` VALUES ('9bc72df6d092');
-/*!40000 ALTER TABLE `alembic_version` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `exercise`
 --
 
@@ -47,14 +24,14 @@ DROP TABLE IF EXISTS `exercise`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `exercise` (
   `id` int NOT NULL AUTO_INCREMENT,
+  `exercise_name` varchar(30) NOT NULL,
   `description` text,
   `reps` int NOT NULL,
-  `schedule_id` int DEFAULT NULL,
-  `exercise_name` varchar(30) NOT NULL,
+  `training_plan_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `schedule_id` (`schedule_id`),
-  CONSTRAINT `exercise_ibfk_1` FOREIGN KEY (`schedule_id`) REFERENCES `schedule` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `training_plan_id` (`training_plan_id`),
+  CONSTRAINT `exercise_ibfk_1` FOREIGN KEY (`training_plan_id`) REFERENCES `training_plan` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,6 +40,7 @@ CREATE TABLE `exercise` (
 
 LOCK TABLES `exercise` WRITE;
 /*!40000 ALTER TABLE `exercise` DISABLE KEYS */;
+INSERT INTO `exercise` VALUES (1,'Push-Up','Push-up exercise for chest and triceps.',15,1),(2,'Sit-Up','Sit-ups for abdominal muscles.',20,2),(3,'Pull-Up','Pull-ups for back and biceps.',10,3),(4,'Squat','Squats for legs and glutes.',12,1),(5,'Lunge','Lunges for legs and balance.',10,NULL),(6,'Bicep Curl','Bicep curls for arm strength.',15,2),(7,'Tricep Dip','Tricep dips for arm toning.',12,3),(8,'Plank','Plank for core stability.',1,1),(9,'Mountain Climber','Mountain climbers for cardio.',20,2),(10,'Burpee','Burpees for full-body workout.',10,3),(11,'Deadlift','Deadlifts for back and leg strength.',8,NULL),(12,'Overhead Press','Overhead press for shoulders.',12,1),(13,'Crunch','Crunches for abs.',15,2),(14,'Step-Up','Step-ups for legs and cardio.',10,3),(15,'Russian Twist','Russian twists for obliques.',20,NULL),(16,'Calf Raise','Calf raises for lower legs.',15,1),(17,'Leg Raise','Leg raises for lower abs.',12,2),(18,'Bench Press','Bench press for chest.',10,3),(19,'Dumbbell Row','Dumbbell rows for back.',10,NULL),(20,'Jumping Jack','Jumping jacks for warm-up.',30,1);
 /*!40000 ALTER TABLE `exercise` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -78,11 +56,11 @@ CREATE TABLE `performance_test` (
   `test_name` varchar(30) NOT NULL,
   `performance_value` float NOT NULL,
   `description` text,
-  `schedule_id` int DEFAULT NULL,
+  `training_plan_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `schedule_id` (`schedule_id`),
-  CONSTRAINT `performance_test_ibfk_1` FOREIGN KEY (`schedule_id`) REFERENCES `schedule` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `training_plan_id` (`training_plan_id`),
+  CONSTRAINT `performance_test_ibfk_1` FOREIGN KEY (`training_plan_id`) REFERENCES `training_plan` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,59 +69,34 @@ CREATE TABLE `performance_test` (
 
 LOCK TABLES `performance_test` WRITE;
 /*!40000 ALTER TABLE `performance_test` DISABLE KEYS */;
+INSERT INTO `performance_test` VALUES (1,'Strength Test',75.5,'Measures overall strength using a combination of push-ups, squats, and deadlifts.',1),(2,'Cardio Endurance Test',85,'Evaluates stamina and cardiovascular efficiency through timed runs and cycling.',2),(3,'Full-Body Assessment',92.3,'Comprehensive test including flexibility, strength, and endurance metrics.',3);
 /*!40000 ALTER TABLE `performance_test` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `schedule`
+-- Table structure for table `training_exercise`
 --
 
-DROP TABLE IF EXISTS `schedule`;
+DROP TABLE IF EXISTS `training_exercise`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `schedule` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `plan_name` varchar(30) NOT NULL,
-  `plan_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `plan_id` (`plan_id`),
-  CONSTRAINT `schedule_ibfk_1` FOREIGN KEY (`plan_id`) REFERENCES `training_plan` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `schedule`
---
-
-LOCK TABLES `schedule` WRITE;
-/*!40000 ALTER TABLE `schedule` DISABLE KEYS */;
-/*!40000 ALTER TABLE `schedule` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `schedule_exercise`
---
-
-DROP TABLE IF EXISTS `schedule_exercise`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `schedule_exercise` (
-  `schedule_id` int NOT NULL,
+CREATE TABLE `training_exercise` (
+  `training_plan_id` int NOT NULL,
   `exercise_id` int NOT NULL,
-  PRIMARY KEY (`schedule_id`,`exercise_id`),
+  PRIMARY KEY (`training_plan_id`,`exercise_id`),
   KEY `exercise_id` (`exercise_id`),
-  CONSTRAINT `schedule_exercise_ibfk_1` FOREIGN KEY (`schedule_id`) REFERENCES `schedule` (`id`),
-  CONSTRAINT `schedule_exercise_ibfk_2` FOREIGN KEY (`exercise_id`) REFERENCES `exercise` (`id`)
+  CONSTRAINT `training_exercise_ibfk_1` FOREIGN KEY (`training_plan_id`) REFERENCES `training_plan` (`id`),
+  CONSTRAINT `training_exercise_ibfk_2` FOREIGN KEY (`exercise_id`) REFERENCES `exercise` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `schedule_exercise`
+-- Dumping data for table `training_exercise`
 --
 
-LOCK TABLES `schedule_exercise` WRITE;
-/*!40000 ALTER TABLE `schedule_exercise` DISABLE KEYS */;
-/*!40000 ALTER TABLE `schedule_exercise` ENABLE KEYS */;
+LOCK TABLES `training_exercise` WRITE;
+/*!40000 ALTER TABLE `training_exercise` DISABLE KEYS */;
+/*!40000 ALTER TABLE `training_exercise` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -156,11 +109,12 @@ DROP TABLE IF EXISTS `training_plan`;
 CREATE TABLE `training_plan` (
   `id` int NOT NULL AUTO_INCREMENT,
   `plan_name` varchar(30) NOT NULL,
+  `day` enum('MON','TUE','WED','THU','FRI') NOT NULL,
   `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `training_plan_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -169,6 +123,7 @@ CREATE TABLE `training_plan` (
 
 LOCK TABLES `training_plan` WRITE;
 /*!40000 ALTER TABLE `training_plan` DISABLE KEYS */;
+INSERT INTO `training_plan` VALUES (1,'Beginner Strength Training','MON',1001),(2,'Intermediate Cardio','TUE',1002),(3,'Advanced Full-Body Workout','WED',1003);
 /*!40000 ALTER TABLE `training_plan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -184,7 +139,7 @@ CREATE TABLE `users` (
   `username` varchar(30) NOT NULL,
   `hashed_password` varchar(40) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1004 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -193,6 +148,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1001,'beginner_user','5f4dcc3b5aa765d61d8327deb882cf99'),(1002,'intermediate_user','e99a18c428cb38d5f260853678922e03'),(1003,'advanced_user','098f6bcd4621d373cade4e832627b4f6');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -205,4 +161,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-01-01 22:05:16
+-- Dump completed on 2025-01-02 17:02:17

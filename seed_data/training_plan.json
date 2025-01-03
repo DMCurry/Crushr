@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "plan_name": "Beginner Strength Training",
+    "day": "MON",
+    "user_id": 1001
+  },
+  {
+    "id": 2,
+    "plan_name": "Intermediate Cardio",
+    "day": "TUE",
+    "user_id": 1002
+  },
+  {
+    "id": 3,
+    "plan_name": "Advanced Full-Body Workout",
+    "day": "WED",
+    "user_id": 1003
+  }
+]

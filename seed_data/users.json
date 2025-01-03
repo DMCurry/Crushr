@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1001,
+    "username": "beginner_user",
+    "hashed_password": "5f4dcc3b5aa765d61d8327deb882cf99"
+  },
+  {
+    "id": 1002,
+    "username": "intermediate_user",
+    "hashed_password": "e99a18c428cb38d5f260853678922e03"
+  },
+  {
+    "id": 1003,
+    "username": "advanced_user",
+    "hashed_password": "098f6bcd4621d373cade4e832627b4f6"
+  }
+]
