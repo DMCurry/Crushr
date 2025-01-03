@@ -1,5 +1,6 @@
 import json
-from app.main import SessionLocal
+from app.main import SessionLocal, engine
+from sqlalchemy import MetaData
 from models.weekly_schedule import WeeklySchedule
 from models.exercise import Exercise
 from models.performance_test import PerformanceTest
