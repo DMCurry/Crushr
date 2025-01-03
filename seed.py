@@ -1,5 +1,6 @@
 import json
 from app.main import SessionLocal
+from models.weekly_schedule import WeeklySchedule
 from models.exercise import Exercise
 from models.performance_test import PerformanceTest
 from models.training_plan import TrainingPlan
@@ -27,7 +28,8 @@ if __name__ == "__main__":
         (path + "users.json", User),
         (path + "training_plan.json", TrainingPlan),
         (path + "exercise.json", Exercise),
-        (path + "performance_test.json", PerformanceTest)
+        (path + "performance_test.json", PerformanceTest),
+        (path + "weekly_schedule.json", WeeklySchedule)
     ]
 
     # Loop over the JSON files and insert data

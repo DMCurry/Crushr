@@ -109,7 +109,6 @@ DROP TABLE IF EXISTS `training_plan`;
 CREATE TABLE `training_plan` (
   `id` int NOT NULL AUTO_INCREMENT,
   `plan_name` varchar(30) NOT NULL,
-  `day` enum('MON','TUE','WED','THU','FRI') NOT NULL,
   `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
@@ -123,7 +122,7 @@ CREATE TABLE `training_plan` (
 
 LOCK TABLES `training_plan` WRITE;
 /*!40000 ALTER TABLE `training_plan` DISABLE KEYS */;
-INSERT INTO `training_plan` VALUES (1,'Beginner Strength Training','MON',1001),(2,'Intermediate Cardio','TUE',1002),(3,'Advanced Full-Body Workout','WED',1003);
+INSERT INTO `training_plan` VALUES (1,'Beginner Strength Training',1001),(2,'Intermediate Cardio',1002),(3,'Advanced Full-Body Workout',1003);
 /*!40000 ALTER TABLE `training_plan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -151,6 +150,33 @@ LOCK TABLES `users` WRITE;
 INSERT INTO `users` VALUES (1001,'beginner_user','5f4dcc3b5aa765d61d8327deb882cf99'),(1002,'intermediate_user','e99a18c428cb38d5f260853678922e03'),(1003,'advanced_user','098f6bcd4621d373cade4e832627b4f6');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `weekly_schedule`
+--
+
+DROP TABLE IF EXISTS `weekly_schedule`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `weekly_schedule` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `day` enum('MON','TUE','WED','THU','FRI') NOT NULL,
+  `exercise_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `exercise_id` (`exercise_id`),
+  CONSTRAINT `weekly_schedule_ibfk_1` FOREIGN KEY (`exercise_id`) REFERENCES `exercise` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `weekly_schedule`
+--
+
+LOCK TABLES `weekly_schedule` WRITE;
+/*!40000 ALTER TABLE `weekly_schedule` DISABLE KEYS */;
+INSERT INTO `weekly_schedule` VALUES (1,'MON',2),(2,'TUE',5),(3,'WED',3);
+/*!40000 ALTER TABLE `weekly_schedule` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -161,4 +187,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-01-02 17:02:17
+-- Dump completed on 2025-01-02 18:14:01

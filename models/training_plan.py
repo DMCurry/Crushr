@@ -9,21 +9,11 @@ from models.training_exercise import training_exercise
 from . import Base
 
 
-class Weekday(enum.Enum):
-    MON = "Monday"
-    TUE = "Tuesday"
-    WED = "Wednesday"
-    THU = "Thursday"
-    FRI = "Friday"
-
-
-
 class TrainingPlan(Base):
     __tablename__ = "training_plan"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     plan_name: Mapped[str] = mapped_column(String(30))
-    day: Mapped[Weekday] = mapped_column(Enum(Weekday))
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     user: Mapped["User"] = relationship(back_populates="training_plans")
     performance_tests: Mapped[List["PerformanceTest"]] = relationship()
