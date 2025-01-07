@@ -6,6 +6,7 @@ from sqlalchemy.exc import OperationalError, ProgrammingError
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import text
 from sqlalchemy import MetaData
+from app.core.db import engine
 from models import Base
 
 
@@ -14,17 +15,8 @@ app = FastAPI()
 app.include_router(users.router)
 app.include_router(exercises.router)
 
-# Database URL
-DATABASE_URL = "mysql+mysqldb://root:@localhost:3306/mydb"
-
-# Create SQLAlchemy engine
-engine = create_engine(DATABASE_URL, future=True)
-
 # Create tables from models (Commented out bc it conflicts with alembic managing things now)
 #Base.metadata.create_all(engine)
-
-# Create a session maker
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # Connection test function
 def test_database_connection():
