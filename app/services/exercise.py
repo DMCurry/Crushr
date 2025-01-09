@@ -1,10 +1,10 @@
 from typing import List
 from sqlalchemy import select
-
-from models import TrainingPlan
+from sqlalchemy.orm import Mapped
 from models.user import User
 from models.exercise import Exercise
 from app.services.base import BaseService
+
 
 class ExerciseService(BaseService):
 
@@ -13,10 +13,10 @@ class ExerciseService(BaseService):
         exercise = self.db.execute(query).scalar_one_or_none()
         return exercise
 
-    def get_exercises(self, plan_id: int) -> List[Exercise]:
-        query = select(TrainingPlan).where(TrainingPlan.id == plan_id)
-        plan = self.db.execute(query).scalar_one_or_none()
-        return plan.exercises
+    def get_exercises(self, user_id: int) -> Mapped[List[Exercise]]:
+        query = select(User).where(User.id == user_id)
+        user = self.db.execute(query).scalar_one_or_none()
+        return user.exercises
 
     def create_exercise(self):
         pass
