@@ -1,5 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.params import Query
+from app.services.exercise import ExerciseService
+from app.dependencies import get_current_user
+
 
 router = APIRouter(prefix="/exercises", tags=["exercises"])
 
@@ -11,6 +14,7 @@ mock_exercises_db = {
 }
 
 @router.get("")
-async def get_exercises(user_id = Query(None)):
-    exercises = mock_exercises_db.get(user_id, {})
-    return exercises
+async def get_exercises(current_user: dict = Depends(get_current_user)):
+    user_id = current_user.get("id")
+    # TODO: Need to connect exercises to User model so list of exercises can be standalone to user
+    return {}

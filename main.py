@@ -1,6 +1,6 @@
 import uvicorn
 from fastapi import FastAPI
-from app.routers import users, exercises
+from app.routers import users, exercises, login
 from sqlalchemy import create_engine
 from sqlalchemy.exc import OperationalError, ProgrammingError
 from sqlalchemy.orm import sessionmaker
@@ -14,6 +14,7 @@ app = FastAPI()
 
 app.include_router(users.router)
 app.include_router(exercises.router)
+app.include_router(login.router)
 
 # Create tables from models (Commented out bc it conflicts with alembic managing things now)
 #Base.metadata.create_all(engine)

@@ -15,6 +15,6 @@ class User(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     username: Mapped[str] = mapped_column(String(30), nullable=False)
     email: Mapped[str] = mapped_column(String(30), nullable=False)
-    hashed_password: Mapped[str] = mapped_column(String(40), nullable=False)
+    hashed_password: Mapped[str] = mapped_column(String(100), nullable=False)
     training_plans: Mapped[List["TrainingPlan"]] = relationship()
 

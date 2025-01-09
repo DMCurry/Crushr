@@ -1,24 +1,37 @@
 import json
-from main import SessionLocal
+import os
+from dotenv import load_dotenv
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 from models.weekly_schedule import WeeklySchedule
 from models.exercise import Exercise
 from models.performance_test import PerformanceTest
 from models.training_plan import TrainingPlan
 from models.user import User
 
+DATABASE_URL = os.getenv("DATABASE_URL", "mysql+mysqldb://root:@localhost:3306/mydb")
 
-def load_and_insert_data(filename, model_name):
+# Create SQLAlchemy engine
+engine = create_engine(DATABASE_URL, future=True)
+
+# Create a session maker
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+def load_and_insert_data(jf, model_name):
     try:
-        with open(json_file, 'r') as filename:
+        with open(jf, 'r') as filename:
             data = json.load(filename)
             with SessionLocal() as session:
                 for record in data:
+                    print(jf)
                     instance = model_class(**record)
+                    #print(instance)
                     session.add(instance)  # Unpack JSON data
                 session.commit()
-        print(f"Inserted data from {filename} into {model_name.__name__}")
+        print(f"Inserted data from {jf} into {model_name.__name__}")
     except Exception as e:
-        print(f"Error inserting data from {filename}: {e}")
+        print("E", e)
+        print(f"Error inserting data from {jf}: {e}")
 
 # Main execution block
 if __name__ == "__main__":
