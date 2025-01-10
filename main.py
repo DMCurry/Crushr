@@ -1,5 +1,6 @@
 import uvicorn
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from app.routers import users, exercises, login
 from sqlalchemy import create_engine
 from sqlalchemy.exc import OperationalError, ProgrammingError
@@ -11,6 +12,22 @@ from models import Base
 
 
 app = FastAPI()
+
+# Define the origins that should be allowed
+origins = [
+    "http://localhost",
+    "http://localhost:3000",
+    "http://localhost:5173"
+]
+
+# Add the CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,  # List of allowed origins
+    allow_credentials=True,  # Allow cookies and authentication headers
+    allow_methods=["*"],  # Allow all HTTP methods
+    allow_headers=["*"],  # Allow all headers
+)
 
 app.include_router(users.router)
 app.include_router(exercises.router)
