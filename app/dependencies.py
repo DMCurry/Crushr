@@ -1,5 +1,6 @@
 import os
 from dotenv import load_dotenv
+from fastapi.params import Cookie
 from fastapi.security import OAuth2PasswordBearer
 from fastapi import Depends, HTTPException, status
 from jose import jwt, JWTError
@@ -12,7 +13,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = os.getenv("ALGORITHM", "HS256")
 
 # Define OAuth2PasswordBearer
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
+#oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
 def decode_and_verify_token(token: str):
     """
@@ -24,12 +25,18 @@ def decode_and_verify_token(token: str):
     except JWTError as e:
         raise ValueError(f"Invalid token: {str(e)}")
 
-def get_current_user(token: str = Depends(oauth2_scheme)):
+def get_current_user(access_token: str = Cookie(None)):
     """
     Dependency to retrieve the current user based on the JWT.
     """
+    if access_token is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token: missing token",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
     try:
-        payload = decode_and_verify_token(token)
+        payload = decode_and_verify_token(access_token)
         user_id = payload.get("sub")
         if user_id is None:
             raise HTTPException(
