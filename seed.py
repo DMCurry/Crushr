@@ -1,13 +1,14 @@
 import json
 import os
 from dotenv import load_dotenv
-from sqlalchemy import create_engine, select
+from sqlalchemy import create_engine, Table, insert
 from sqlalchemy.orm import sessionmaker
 from models.weekly_schedule import WeeklySchedule
 from models.exercise import Exercise
+from models.training_exercise import training_exercise
 from models.performance_test import PerformanceTest
 from models.training_plan import TrainingPlan
-from models.user import User
+from models.user import User, Base
 
 DATABASE_URL = os.getenv("DATABASE_URL", "mysql+mysqldb://root:@localhost:3306/mydb")
 
@@ -22,13 +23,19 @@ def load_and_insert_data(jf, model_name):
         with open(jf, 'r') as filename:
             data = json.load(filename)
             with SessionLocal() as session:
-                for record in data:
-                    print(jf)
-                    instance = model_class(**record)
-                    #print(instance)
-                    session.add(instance)  # Unpack JSON data
-                session.commit()
-        print(f"Inserted data from {jf} into {model_name.__name__}")
+                with engine.connect() as connection:
+                    for record in data:
+                        if isinstance(model_name, Table):
+                            # Handle raw tables
+                            new_record = [record]
+                            connection.execute(insert(model_name), new_record)
+                            connection.commit()
+                        elif issubclass(model_name, Base):
+                            print(jf)  # Print JSON file name
+                            instance = model_name(**record)
+                            session.add(instance)  # Unpack JSON data
+                            session.commit()
+        print(f"Inserted data from {jf} into {model_name}")
     except Exception as e:
         print("E", e)
         print(f"Error inserting data from {jf}: {e}")
@@ -42,7 +49,8 @@ if __name__ == "__main__":
         (path + "training_plan.json", TrainingPlan),
         (path + "exercise.json", Exercise),
         (path + "performance_test.json", PerformanceTest),
-        (path + "weekly_schedule.json", WeeklySchedule)
+        (path + "weekly_schedule.json", WeeklySchedule),
+        (path + "training_exercise.json", training_exercise)
     ]
 
     # Loop over the JSON files and insert data

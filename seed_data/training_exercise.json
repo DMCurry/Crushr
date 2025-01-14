@@ -1,0 +1,14 @@
+[
+  {
+    "training_plan_id": 1,
+    "exercise_id": 1
+  },
+  {
+    "training_plan_id": 1,
+    "exercise_id": 2
+  },
+  {
+    "training_plan_id": 1,
+    "exercise_id": 3
+  }
+]

@@ -22,8 +22,8 @@ class TrainingPlanService(BaseService):
     def create_plan(self, plan_input) -> Mapped[TrainingPlan]:
         pass
 
-    def add_exercises_to_plan(self, plan_id: int, exercise_ids: List[int]):
-        plan_query = select(TrainingPlan).where(TrainingPlan.id == plan_id)
+    def add_exercises_to_plan(self, user_id: int, plan_id: int, exercise_ids: List[int]):
+        plan_query = select(TrainingPlan).where(TrainingPlan.user_id == user_id).where(TrainingPlan.id == plan_id)
         plan = self.db.execute(plan_query).scalar_one_or_none()
         exercise_query = select(Exercise).where(Exercise.id.in_(exercise_ids))
         exercises = self.db.execute(exercise_query).scalars()

@@ -24,8 +24,8 @@ async def get_training_plans(
 
 @router.post("/add-exercises")
 async def add_exercises(
-        add_exercises: AddExercisesInputSchema,
+        add_exercises_input: AddExercisesInputSchema,
         current_user: dict = Depends(get_current_user),
         training_plan_service: TrainingPlanService = Depends(get_training_plan_service)):
     user_id = current_user.get("id")
-    training_plan_service.add_exercises_to_plan(add_exercises.plan_id, add_exercises.exercise_ids)
+    training_plan_service.add_exercises_to_plan(user_id, add_exercises_input.plan_id, add_exercises_input.exercise_ids)
