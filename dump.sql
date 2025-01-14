@@ -34,7 +34,7 @@ CREATE TABLE `alembic_version` (
 
 LOCK TABLES `alembic_version` WRITE;
 /*!40000 ALTER TABLE `alembic_version` DISABLE KEYS */;
-INSERT INTO `alembic_version` VALUES ('46fe2aa000e2');
+INSERT INTO `alembic_version` VALUES ('bc571e940032');
 /*!40000 ALTER TABLE `alembic_version` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -50,12 +50,9 @@ CREATE TABLE `exercise` (
   `exercise_name` varchar(30) NOT NULL,
   `description` text,
   `reps` int NOT NULL,
-  `training_plan_id` int DEFAULT NULL,
   `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `training_plan_id` (`training_plan_id`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `exercise_ibfk_1` FOREIGN KEY (`training_plan_id`) REFERENCES `training_plan` (`id`),
   CONSTRAINT `exercise_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -184,10 +181,7 @@ DROP TABLE IF EXISTS `weekly_schedule`;
 CREATE TABLE `weekly_schedule` (
   `id` int NOT NULL AUTO_INCREMENT,
   `day` enum('MON','TUE','WED','THU','FRI') NOT NULL,
-  `exercise_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `exercise_id` (`exercise_id`),
-  CONSTRAINT `weekly_schedule_ibfk_1` FOREIGN KEY (`exercise_id`) REFERENCES `exercise` (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -199,6 +193,32 @@ LOCK TABLES `weekly_schedule` WRITE;
 /*!40000 ALTER TABLE `weekly_schedule` DISABLE KEYS */;
 /*!40000 ALTER TABLE `weekly_schedule` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `weekly_schedule_exercise`
+--
+
+DROP TABLE IF EXISTS `weekly_schedule_exercise`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `weekly_schedule_exercise` (
+  `weekly_schedule_id` int DEFAULT NULL,
+  `exercise_id` int DEFAULT NULL,
+  KEY `exercise_id` (`exercise_id`),
+  KEY `weekly_schedule_id` (`weekly_schedule_id`),
+  CONSTRAINT `weekly_schedule_exercise_ibfk_1` FOREIGN KEY (`exercise_id`) REFERENCES `exercise` (`id`),
+  CONSTRAINT `weekly_schedule_exercise_ibfk_2` FOREIGN KEY (`weekly_schedule_id`) REFERENCES `weekly_schedule` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `weekly_schedule_exercise`
+--
+
+LOCK TABLES `weekly_schedule_exercise` WRITE;
+/*!40000 ALTER TABLE `weekly_schedule_exercise` DISABLE KEYS */;
+/*!40000 ALTER TABLE `weekly_schedule_exercise` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -209,4 +229,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-01-09 10:50:07
+-- Dump completed on 2025-01-13 16:18:36

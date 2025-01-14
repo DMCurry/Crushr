@@ -22,8 +22,6 @@ class Exercise(Base):
     description: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     reps: Mapped[int] = mapped_column(Integer, nullable=False)
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
-    training_plan_id: Mapped[Optional[int]] = mapped_column(ForeignKey("training_plan.id"), nullable=True)
-    weekly_schedule: Mapped["WeeklySchedule"] = relationship(back_populates="exercise")
     training_plan: Mapped[List["TrainingPlan"]] = relationship(
         secondary=training_exercise,
         back_populates="exercises"

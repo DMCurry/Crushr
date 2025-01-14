@@ -2,6 +2,7 @@ from typing import List, Literal
 import enum
 from sqlalchemy import String, Enum, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from models.weekly_schedule_exercise import weekly_schedule_exercise
 from . import Base
 
 class Weekday(enum.Enum):
@@ -17,5 +18,4 @@ class WeeklySchedule(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     day: Mapped[Weekday] = mapped_column(Enum(Weekday))
-    exercise_id: Mapped[int] = mapped_column(ForeignKey("exercise.id"))
-    exercise: Mapped["Exercise"] = relationship(back_populates="weekly_schedule")
+    exercises: Mapped[List["Exercise"]] = relationship(secondary=weekly_schedule_exercise)

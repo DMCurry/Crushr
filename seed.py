@@ -1,7 +1,7 @@
 import json
 import os
 from dotenv import load_dotenv
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, select
 from sqlalchemy.orm import sessionmaker
 from models.weekly_schedule import WeeklySchedule
 from models.exercise import Exercise
