@@ -1,17 +1,14 @@
 [
   {
     "id": 1,
-    "day": "MON",
-    "exercise_id": 2
+    "day": "MON"
   },
   {
     "id": 2,
-    "day": "TUE",
-    "exercise_id": 5
+    "day": "TUE"
   },
   {
     "id": 3,
-    "day": "WED",
-    "exercise_id": 3
+    "day": "WED"
   }
 ]
