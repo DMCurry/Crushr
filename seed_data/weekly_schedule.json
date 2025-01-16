@@ -1,14 +1,17 @@
 [
   {
     "id": 1,
-    "day": "MON"
+    "day": "MON",
+    "user_id": 1001
   },
   {
     "id": 2,
-    "day": "TUE"
+    "day": "TUE",
+    "user_id": 1001
   },
   {
     "id": 3,
-    "day": "WED"
+    "day": "WED",
+    "user_id": 1002
   }
 ]

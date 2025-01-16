@@ -18,4 +18,5 @@ class WeeklySchedule(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     day: Mapped[Weekday] = mapped_column(Enum(Weekday))
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
     exercises: Mapped[List["Exercise"]] = relationship(secondary=weekly_schedule_exercise)
