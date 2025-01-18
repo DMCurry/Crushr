@@ -1,7 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import users, exercises, login, training_plan, schedule
+from app.routers import users, exercises, login, logout, check_auth, training_plan, schedule
 from sqlalchemy import create_engine
 from sqlalchemy.exc import OperationalError, ProgrammingError
 from sqlalchemy.orm import sessionmaker
@@ -32,6 +32,8 @@ app.add_middleware(
 app.include_router(users.router)
 app.include_router(exercises.router)
 app.include_router(login.router)
+app.include_router(logout.router)
+app.include_router(check_auth.router)
 app.include_router(training_plan.router)
 app.include_router(schedule.router)
 
