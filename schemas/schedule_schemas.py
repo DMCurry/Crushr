@@ -4,6 +4,8 @@ from typing import List, Optional
 class ScheduleExerciseOutputSchema(BaseModel):
     exercise_id: int
     exercise_name: str
+    exercise_reps: int
+    exercise_description: str
 
 class ScheduleOutputSchema(BaseModel):
     Monday: Optional[List[ScheduleExerciseOutputSchema]] = None

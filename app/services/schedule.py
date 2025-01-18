@@ -12,7 +12,7 @@ from models.weekly_schedule_exercise import weekly_schedule_exercise
 class ScheduleService(BaseService):
 
     def get_schedule(self, user_id: int) -> dict:
-        query = (select(WeeklySchedule.day, Exercise.id, Exercise.exercise_name)
+        query = (select(WeeklySchedule.day, Exercise.id, Exercise.exercise_name, Exercise.reps, Exercise.description)
                 .join(weekly_schedule_exercise, WeeklySchedule.id == weekly_schedule_exercise.c.weekly_schedule_id)
                 .join(Exercise, weekly_schedule_exercise.c.exercise_id == Exercise.id)
                 .where(WeeklySchedule.user_id == user_id)
@@ -20,10 +20,17 @@ class ScheduleService(BaseService):
         schedule = self.db.execute(query).all()
 
         schedule_map = {}
-        for day, exercise_id, exercise_name in schedule:
+        for day, exercise_id, exercise_name, exercise_reps, exercise_desc in schedule:
             if schedule_map.get(day) is None:
                 schedule_map[day.value] = []
-            schedule_map[day.value].append({"exercise_id": exercise_id, "exercise_name": exercise_name})
+            schedule_map[day.value].append(
+                {
+                    "exercise_id": exercise_id,
+                    "exercise_name": exercise_name,
+                    "exercise_reps": exercise_reps,
+                    "exercise_description": exercise_desc
+                }
+            )
         return schedule_map
 
     def get_scheduled_exercises(self, user_id: int) -> Mapped[list]:
