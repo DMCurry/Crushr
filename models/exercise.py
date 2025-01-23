@@ -8,9 +8,9 @@ from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
 
-from models.weekly_schedule import WeeklySchedule
 from . import Base
 from models.training_exercise import training_exercise
+from models.weekly_schedule_exercise import weekly_schedule_exercise
 #from models.training_plan import TrainingPlan
 
 
@@ -22,6 +22,10 @@ class Exercise(Base):
     description: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     reps: Mapped[int] = mapped_column(Integer, nullable=False)
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
+    weekly_schedule_days: Mapped[List["WeeklySchedule"]] = relationship(
+        secondary=weekly_schedule_exercise,
+        back_populates="exercises"
+    )
     training_plan: Mapped[List["TrainingPlan"]] = relationship(
         secondary=training_exercise,
         back_populates="exercises"
