@@ -4,6 +4,7 @@ from sqlalchemy.orm import Mapped
 from models.user import User
 from models.exercise import Exercise
 from app.services.base import BaseService
+from schemas.exercise_schemas import ExerciseSchema
 
 
 class ExerciseService(BaseService):
@@ -18,8 +19,16 @@ class ExerciseService(BaseService):
         user = self.db.execute(query).scalar_one_or_none()
         return user.exercises
 
-    def create_exercise(self):
-        pass
+    def create_exercise(self, user_id: int, exercise_info: ExerciseSchema) -> Exercise:
+        exercise = Exercise(
+            exercise_name = exercise_info.exercise_name,
+            description = exercise_info.description,
+            reps = exercise_info.reps,
+            user_id = user_id
+        )
+        self.db.add(exercise)
+        self.db.commit()
+        return exercise
 
     def update_exercise(self) -> Exercise:
         pass

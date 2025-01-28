@@ -1,0 +1,9 @@
+from pydantic import BaseModel, Field
+
+class ExerciseSchema(BaseModel):
+    exercise_name: str
+    reps: int = Field(serialization_alias="exercise_reps")
+    description: str = Field(serialization_alias="exercise_description")
+
+    class Config:
+        from_attributes = True
