@@ -7,3 +7,6 @@ class ExerciseSchema(BaseModel):
 
     class Config:
         from_attributes = True
+
+class ExerciseUpdateSchema(ExerciseSchema):
+    id: int

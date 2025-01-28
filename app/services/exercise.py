@@ -30,8 +30,17 @@ class ExerciseService(BaseService):
         self.db.commit()
         return exercise
 
-    def update_exercise(self) -> Exercise:
-        pass
+    def update_exercise(self, user_id: int, exercise_id: int, exercise_info: ExerciseSchema) -> Exercise:
+        query = (select(Exercise)
+                 .where(Exercise.user_id == user_id)
+                 .where(Exercise.id == exercise_id)
+                 )
+        exercise = self.db.execute(query).scalar_one_or_none()
+        exercise.exercise_name = exercise_info.exercise_name
+        exercise.reps = exercise_info.reps
+        exercise.description = exercise_info.description
+        self.db.commit()
+        return exercise
 
     def delete_exercise(self):
         pass
