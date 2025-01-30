@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from schemas.performance_test_schemas import PerformanceTestSchema, PerformanceTestUpdateSchema
 
 
-router = APIRouter(prefix="/performance-tests", tags=["exercises"])
+router = APIRouter(prefix="/performance-tests", tags=["performance_tests"])
 
 
 def get_performance_test_service(db: Session = Depends(get_db)):
