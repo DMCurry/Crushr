@@ -17,5 +17,6 @@ class PerformanceTest(Base):
     test_name: Mapped[str] = mapped_column(String(30))
     performance_value: Mapped[float] = mapped_column(Float, nullable=False)
     description: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
     training_plan_id: Mapped[Optional[int]] = mapped_column(ForeignKey("training_plan.id"), nullable=True)
     training_plan: Mapped["TrainingPlan"] = relationship(back_populates="performance_tests")

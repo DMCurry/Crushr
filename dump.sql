@@ -34,7 +34,7 @@ CREATE TABLE `alembic_version` (
 
 LOCK TABLES `alembic_version` WRITE;
 /*!40000 ALTER TABLE `alembic_version` DISABLE KEYS */;
-INSERT INTO `alembic_version` VALUES ('6e8c538b88d0');
+INSERT INTO `alembic_version` VALUES ('52efc97a240f');
 /*!40000 ALTER TABLE `alembic_version` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -79,9 +79,12 @@ CREATE TABLE `performance_test` (
   `performance_value` float NOT NULL,
   `description` text,
   `training_plan_id` int DEFAULT NULL,
+  `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `training_plan_id` (`training_plan_id`),
-  CONSTRAINT `performance_test_ibfk_1` FOREIGN KEY (`training_plan_id`) REFERENCES `training_plan` (`id`)
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `performance_test_ibfk_1` FOREIGN KEY (`training_plan_id`) REFERENCES `training_plan` (`id`),
+  CONSTRAINT `performance_test_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -232,4 +235,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-01-15 17:38:00
+-- Dump completed on 2025-01-30 13:49:15

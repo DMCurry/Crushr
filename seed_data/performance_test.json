@@ -4,6 +4,7 @@
     "test_name": "Strength Test",
     "performance_value": 75.5,
     "description": "Measures overall strength using a combination of push-ups, squats, and deadlifts.",
+    "user_id": 1001,
     "training_plan_id": 1
   },
   {
@@ -11,6 +12,7 @@
     "test_name": "Cardio Endurance Test",
     "performance_value": 85.0,
     "description": "Evaluates stamina and cardiovascular efficiency through timed runs and cycling.",
+    "user_id": 1001,
     "training_plan_id": 2
   },
   {
@@ -18,6 +20,7 @@
     "test_name": "Full-Body Assessment",
     "performance_value": 92.3,
     "description": "Comprehensive test including flexibility, strength, and endurance metrics.",
+    "user_id": 1002,
     "training_plan_id": 3
   }
 ]
