@@ -29,7 +29,7 @@ ALGORITHM=HS256
 DATABASE_URL=mysql+mysqldb://root:@localhost:3306/database_name
 
 ### 5. Set up a run config or edit main.py 
-<img height="400" src="/Users/dylancurry/Desktop/Crushr/run_config_example.png" width="600"/>
+<img height="400" src="./run_config_example.png" width="600"/>
 
 Otherwise try adding `from dotenv import load_dotenv
 `   to main.py and then directly below the imports add `load_dotenv()`  
