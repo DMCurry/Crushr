@@ -25,5 +25,14 @@ class PerformanceTestService(BaseService):
         self.db.commit()
         return performance_test
 
-    def update_performance_test(self, user_id, performance_test_id,  performance_test_info):
-        pass
+    def update_performance_test(self, user_id, performance_test_id,  performance_test_info: PerformanceTestSchema):
+        query = (select(PerformanceTest)
+                 .where(PerformanceTest.user_id == user_id)
+                 .where(PerformanceTest.id == performance_test_id)
+                 )
+        performance_test = self.db.execute(query).scalar_one_or_none()
+        performance_test.test_name = performance_test_info.test_name
+        performance_test.performance_value = performance_test_info.performance_value
+        performance_test.description = performance_test_info.description
+        self.db.commit()
+        return performance_test
