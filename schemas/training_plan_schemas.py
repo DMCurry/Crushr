@@ -1,6 +1,10 @@
 from pydantic import BaseModel
 from typing import List
 
-class AddExercisesInputSchema(BaseModel):
+class AddItemsInputSchema(BaseModel):
     plan_id: int
-    exercise_ids: List[int]
+    item_ids: List[int]
+
+
+class CreatePlanInputSchema(BaseModel):
+    plan_name: str

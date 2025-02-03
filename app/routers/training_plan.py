@@ -3,8 +3,7 @@ from app.services.training_plan import TrainingPlanService
 from app.dependencies import get_current_user
 from app.dependencies import get_db
 from sqlalchemy.orm import Session
-from schemas.training_plan_schemas import AddExercisesInputSchema
-
+from schemas.training_plan_schemas import AddItemsInputSchema, CreatePlanInputSchema
 
 router = APIRouter(prefix="/training-plan", tags=["training_plan"])
 
@@ -22,10 +21,33 @@ async def get_training_plans(
     return training_plans
 
 
-@router.post("/add-exercises")
-async def add_exercises(
-        add_exercises_input: AddExercisesInputSchema,
+@router.post("")
+async def create_training_plan(
+        new_plan_input: CreatePlanInputSchema,
         current_user: dict = Depends(get_current_user),
         training_plan_service: TrainingPlanService = Depends(get_training_plan_service)):
     user_id = current_user.get("id")
-    training_plan_service.add_exercises_to_plan(user_id, add_exercises_input.plan_id, add_exercises_input.exercise_ids)
+    training_plan = training_plan_service.create_plan(user_id, new_plan_input.plan_name)
+    return training_plan
+
+
+@router.post("/add-exercises")
+async def add_exercises(
+        add_exercises_input: AddItemsInputSchema,
+        current_user: dict = Depends(get_current_user),
+        training_plan_service: TrainingPlanService = Depends(get_training_plan_service)):
+    user_id = current_user.get("id")
+    training_plan_service.add_exercises_to_plan(user_id, add_exercises_input.plan_id, add_exercises_input.item_ids)
+    return {}
+
+
+@router.post("/add-performance-tests")
+async def add_performance_tests(
+        add_performance_test_input: AddItemsInputSchema,
+        current_user: dict = Depends(get_current_user),
+        training_plan_service: TrainingPlanService = Depends(get_training_plan_service)):
+    user_id = current_user.get("id")
+    training_plan_service.add_performance_tests_to_plan(
+        user_id, add_performance_test_input.plan_id, add_performance_test_input.item_ids
+    )
+    return {}
