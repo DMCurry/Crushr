@@ -3,6 +3,7 @@ from sqlalchemy import String, Enum, ForeignKey
 from utilities import Weekday
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from models.weekly_schedule_exercise import weekly_schedule_exercise
+from models.weekly_schedule_performance_test import weekly_schedule_performance_test
 from . import Base
 
 
@@ -16,4 +17,8 @@ class WeeklySchedule(Base):
     exercises: Mapped[List["Exercise"]] = relationship(
         secondary=weekly_schedule_exercise,
         back_populates="weekly_schedule_days"
+    )
+    performance_tests: Mapped[List["PerformanceTest"]] = relationship(
+        secondary=weekly_schedule_performance_test,
+        back_populates="weekly_schedule_days_performance"
     )

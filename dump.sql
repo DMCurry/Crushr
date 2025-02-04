@@ -34,7 +34,7 @@ CREATE TABLE `alembic_version` (
 
 LOCK TABLES `alembic_version` WRITE;
 /*!40000 ALTER TABLE `alembic_version` DISABLE KEYS */;
-INSERT INTO `alembic_version` VALUES ('52efc97a240f');
+INSERT INTO `alembic_version` VALUES ('31af7810c821');
 /*!40000 ALTER TABLE `alembic_version` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -225,6 +225,32 @@ LOCK TABLES `weekly_schedule_exercise` WRITE;
 /*!40000 ALTER TABLE `weekly_schedule_exercise` DISABLE KEYS */;
 /*!40000 ALTER TABLE `weekly_schedule_exercise` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `weekly_schedule_performance_test`
+--
+
+DROP TABLE IF EXISTS `weekly_schedule_performance_test`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `weekly_schedule_performance_test` (
+  `weekly_schedule_id` int DEFAULT NULL,
+  `performance_test_id` int DEFAULT NULL,
+  KEY `performance_test_id` (`performance_test_id`),
+  KEY `weekly_schedule_id` (`weekly_schedule_id`),
+  CONSTRAINT `weekly_schedule_performance_test_ibfk_1` FOREIGN KEY (`performance_test_id`) REFERENCES `performance_test` (`id`),
+  CONSTRAINT `weekly_schedule_performance_test_ibfk_2` FOREIGN KEY (`weekly_schedule_id`) REFERENCES `weekly_schedule` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `weekly_schedule_performance_test`
+--
+
+LOCK TABLES `weekly_schedule_performance_test` WRITE;
+/*!40000 ALTER TABLE `weekly_schedule_performance_test` DISABLE KEYS */;
+/*!40000 ALTER TABLE `weekly_schedule_performance_test` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -235,4 +261,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-01-30 13:49:15
+-- Dump completed on 2025-02-03 15:39:37

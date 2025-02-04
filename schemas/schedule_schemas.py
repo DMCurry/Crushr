@@ -7,13 +7,22 @@ class ScheduleExerciseSchema(BaseModel):
     exercise_reps: int
     exercise_description: str
 
+class SchedulePerformanceTestSchema(BaseModel):
+    performance_test_id: int
+    performance_test_name: str
+    performance_test_value: float
+    performance_test_description: str
+
+class ScheduleItems(BaseModel):
+    exercises: Optional[List[ScheduleExerciseSchema]] = None
+    performance_tests: Optional[List[SchedulePerformanceTestSchema]] = None
+
 class ScheduleSchema(BaseModel):
-    Monday: Optional[List[ScheduleExerciseSchema]] = None
-    Tuesday: Optional[List[ScheduleExerciseSchema]] = None
-    Wednesday: Optional[List[ScheduleExerciseSchema]] = None
-    Thursday: Optional[List[ScheduleExerciseSchema]] = None
-    Friday: Optional[List[ScheduleExerciseSchema]] = None
+    Monday: Optional[ScheduleItems] = None
+    Tuesday: Optional[ScheduleItems] = None
+    Wednesday: Optional[ScheduleItems] = None
+    Thursday: Optional[ScheduleItems] = None
+    Friday: Optional[ScheduleItems] = None
 
 class WeeklyScheduleSchema(BaseModel):
     data: Optional[ScheduleSchema] = None
-
