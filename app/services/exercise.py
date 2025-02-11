@@ -1,4 +1,5 @@
 from typing import List
+from fastapi import status
 from sqlalchemy import select
 from sqlalchemy.orm import Mapped
 from models.user import User
@@ -42,5 +43,13 @@ class ExerciseService(BaseService):
         self.db.commit()
         return exercise
 
-    def delete_exercise(self):
-        pass
+    def delete_exercise(self, user_id: int, exercise_id: int):
+        query = (select(Exercise)
+                 .where(Exercise.user_id == user_id)
+                 .where(Exercise.id == exercise_id)
+                 )
+        exercise = self.db.execute(query).scalar_one_or_none()
+        if not exercise:
+            raise status.HTTP_404_NOT_FOUND
+        self.db.delete(exercise)
+        self.db.commit()

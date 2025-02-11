@@ -3,6 +3,11 @@ import enum
 
 PWD_CONTEXT = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
+
+class ItemType(enum.Enum):
+    TEST = 1
+    EXERCISE = 2
+
 class Weekday(enum.Enum):
     MON = "Monday"
     TUE = "Tuesday"

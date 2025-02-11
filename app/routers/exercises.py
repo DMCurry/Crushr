@@ -40,3 +40,13 @@ async def update_exercise(
     user_id = current_user.get("id")
     exercise = exercise_service.update_exercise(user_id, exercise_input.id, exercise_input)
     return ExerciseSchema.model_validate(exercise)
+
+
+@router.delete("")
+async def delete_exercise(
+        exercise_id: int,
+        current_user: dict = Depends(get_current_user),
+        exercise_service: ExerciseService = Depends(get_exercise_service)):
+    user_id = current_user.get("id")
+    exercise_service.delete_exercise(user_id, exercise_id)
+    return

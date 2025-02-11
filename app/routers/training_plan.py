@@ -3,7 +3,7 @@ from app.services.training_plan import TrainingPlanService
 from app.dependencies import get_current_user
 from app.dependencies import get_db
 from sqlalchemy.orm import Session
-from schemas.training_plan_schemas import AddItemsInputSchema, CreatePlanInputSchema
+from schemas.training_plan_schemas import AddItemsInputSchema, CreatePlanInputSchema, RemoveItemSchema
 
 router = APIRouter(prefix="/training-plan", tags=["training_plan"])
 
@@ -37,8 +37,8 @@ async def add_exercises(
         current_user: dict = Depends(get_current_user),
         training_plan_service: TrainingPlanService = Depends(get_training_plan_service)):
     user_id = current_user.get("id")
-    training_plan_service.add_exercises_to_plan(user_id, add_exercises_input.plan_id, add_exercises_input.item_ids)
-    return {}
+    plan = training_plan_service.add_exercises_to_plan(user_id, add_exercises_input.plan_id, add_exercises_input.item_ids)
+    return plan
 
 
 @router.post("/add-performance-tests")
@@ -47,7 +47,17 @@ async def add_performance_tests(
         current_user: dict = Depends(get_current_user),
         training_plan_service: TrainingPlanService = Depends(get_training_plan_service)):
     user_id = current_user.get("id")
-    training_plan_service.add_performance_tests_to_plan(
+    plan = training_plan_service.add_performance_tests_to_plan(
         user_id, add_performance_test_input.plan_id, add_performance_test_input.item_ids
     )
-    return {}
+    return plan
+
+
+@router.put("/remove-item")
+async def remove_item(
+        item: RemoveItemSchema,
+        current_user: dict = Depends(get_current_user),
+        training_plan_service: TrainingPlanService = Depends(get_training_plan_service)):
+    user_id = current_user.get("id")
+    plan = training_plan_service.remove_item(user_id, item)
+    return plan
