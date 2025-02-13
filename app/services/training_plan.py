@@ -28,6 +28,18 @@ class TrainingPlanService(BaseService):
         self.db.commit()
         return training_plan
 
+    def update_plan(self, user_id: int, plan_id: int, new_plan_name: str) -> TrainingPlan:
+        plan_query = select(TrainingPlan).where(TrainingPlan.user_id == user_id).where(TrainingPlan.id == plan_id)
+        plan = self.db.execute(plan_query).scalar_one_or_none()
+        if plan is None:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="training plan not found"
+            )
+        plan.plan_name = new_plan_name
+        self.db.commit()
+        return plan
+
     def add_exercises_to_plan(self, user_id: int, plan_id: int, exercise_ids: List[int]) -> TrainingPlan:
         plan_query = select(TrainingPlan).where(TrainingPlan.user_id == user_id).where(TrainingPlan.id == plan_id)
         plan = self.db.execute(plan_query).scalar_one_or_none()
