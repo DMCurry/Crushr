@@ -52,8 +52,8 @@ class ScheduleService(BaseService):
                      .where(WeeklySchedule.day == Weekday(day)))
             day_schedule_row = self.db.execute(query).scalar_one_or_none()
             has_day_schedule = day_schedule_row is not None
-            exercises = [] if item_lists is None else item_lists.get("exercises", [])
-            performance_tests = [] if item_lists is None else item_lists.get("performance_tests", [])
+            exercises = [] if item_lists is None else [] if item_lists.get("exercises") is None else item_lists.get("exercises", [])
+            performance_tests = [] if item_lists is None else [] if item_lists.get("performance_tests") is None else item_lists.get("performance_tests", [])
             no_items = len(exercises) == 0 and len(performance_tests) == 0
 
             #  If there are no exercises for the day in request but there is a row in DB then remove row
