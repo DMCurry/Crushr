@@ -23,6 +23,8 @@ class ScheduleSchema(BaseModel):
     Wednesday: Optional[ScheduleItems] = None
     Thursday: Optional[ScheduleItems] = None
     Friday: Optional[ScheduleItems] = None
+    Saturday: Optional[ScheduleItems] = None
+    Sunday: Optional[ScheduleItems] = None
 
 class WeeklyScheduleSchema(BaseModel):
     data: Optional[ScheduleSchema] = None

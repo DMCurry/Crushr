@@ -73,7 +73,7 @@ class ScheduleService(BaseService):
                 if not has_day_schedule:
                     new_weekly_schedule_row = WeeklySchedule(
                         day = Weekday(day),
-                        user_id = user_id,
+                        user_id = int(user_id),
                         exercises = exercise_objects,
                         performance_tests = performance_test_objects
                     )

@@ -34,7 +34,7 @@ CREATE TABLE `alembic_version` (
 
 LOCK TABLES `alembic_version` WRITE;
 /*!40000 ALTER TABLE `alembic_version` DISABLE KEYS */;
-INSERT INTO `alembic_version` VALUES ('31af7810c821');
+INSERT INTO `alembic_version` VALUES ('62aad929d98a');
 /*!40000 ALTER TABLE `alembic_version` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -183,7 +183,7 @@ DROP TABLE IF EXISTS `weekly_schedule`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `weekly_schedule` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `day` enum('MON','TUE','WED','THU','FRI') NOT NULL,
+  `day` enum('MON','TUE','WED','THU','FRI','SAT','SUN') NOT NULL,
   `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
@@ -261,4 +261,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-02-03 15:39:37
+-- Dump completed on 2025-02-26 15:59:52

@@ -14,6 +14,8 @@ class Weekday(enum.Enum):
     WED = "Wednesday"
     THU = "Thursday"
     FRI = "Friday"
+    SAT = "Saturday"
+    SUN = "Sunday"
 
 def hash_password(password: str) -> str:
     return PWD_CONTEXT.hash(password)
