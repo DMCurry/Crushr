@@ -5,6 +5,7 @@ from sqlalchemy import create_engine, Table, insert
 from sqlalchemy.orm import sessionmaker
 from models.weekly_schedule import WeeklySchedule
 from models.exercise import Exercise
+from models.analytics import Analytics
 from models.training_exercise import training_exercise
 from models.weekly_schedule_exercise import weekly_schedule_exercise
 from models.weekly_schedule_performance_test import weekly_schedule_performance_test
@@ -51,6 +52,7 @@ if __name__ == "__main__":
         (path + "training_plan.json", TrainingPlan),
         (path + "exercise.json", Exercise),
         (path + "performance_test.json", PerformanceTest),
+        (path + "analytics.json", Analytics),
         (path + "weekly_schedule.json", WeeklySchedule),
         (path + "training_exercise.json", training_exercise),
         (path + "weekly_schedule_exercise.json", weekly_schedule_exercise),

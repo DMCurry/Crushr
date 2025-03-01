@@ -39,6 +39,37 @@ INSERT INTO `alembic_version` VALUES ('62aad929d98a');
 UNLOCK TABLES;
 
 --
+-- Table structure for table `analytics`
+--
+
+DROP TABLE IF EXISTS `analytics`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `analytics` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `performance_test_id` int NOT NULL,
+  `performance_test_result` float NOT NULL,
+  `test_date` date NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `performance_test_id` (`performance_test_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `analytics_ibfk_1` FOREIGN KEY (`performance_test_id`) REFERENCES `performance_test` (`id`),
+  CONSTRAINT `analytics_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `analytics`
+--
+
+LOCK TABLES `analytics` WRITE;
+/*!40000 ALTER TABLE `analytics` DISABLE KEYS */;
+INSERT INTO `analytics` VALUES (1,1001,1,3.3,'2025-01-01'),(2,1001,1,10.21,'2025-01-23'),(3,1001,2,9,'2025-01-15');
+/*!40000 ALTER TABLE `analytics` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `exercise`
 --
 
@@ -261,4 +292,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-02-26 15:59:52
+-- Dump completed on 2025-03-01 15:54:35

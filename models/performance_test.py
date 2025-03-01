@@ -23,6 +23,7 @@ class PerformanceTest(Base):
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
     training_plan_id: Mapped[Optional[int]] = mapped_column(ForeignKey("training_plan.id"), nullable=True)
     training_plan: Mapped["TrainingPlan"] = relationship(back_populates="performance_tests")
+    analytics: Mapped[List["Analytics"]] = relationship()
     weekly_schedule_days_performance: Mapped[List["WeeklySchedule"]] = relationship(
         secondary=weekly_schedule_performance_test,
         back_populates="performance_tests"
