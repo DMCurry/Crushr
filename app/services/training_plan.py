@@ -5,6 +5,7 @@ from fastapi import status, HTTPException
 from models import Exercise, PerformanceTest
 from models.training_plan import TrainingPlan
 from app.services.base import BaseService
+from itertools import chain
 from models.user import User
 from utilities import ItemType
 
@@ -44,9 +45,9 @@ class TrainingPlanService(BaseService):
         plan_query = select(TrainingPlan).where(TrainingPlan.user_id == user_id).where(TrainingPlan.id == plan_id)
         plan = self.db.execute(plan_query).scalar_one_or_none()
         exercise_query = select(Exercise).where(Exercise.id.in_(exercise_ids))
-        exercises = self.db.execute(exercise_query).scalars()
+        exercises = self.db.execute(exercise_query).scalars().all()
 
-        plan.exercises = list(exercises)
+        plan.exercises = exercises
         self.db.commit()
         return plan
 
