@@ -43,7 +43,7 @@ class ExerciseService(BaseService):
         self.db.commit()
         return exercise
 
-    def delete_exercise(self, user_id: int, exercise_id: int):
+    def delete_exercise(self, user_id: int, exercise_id: int) -> None:
         query = (select(Exercise)
                  .where(Exercise.user_id == user_id)
                  .where(Exercise.id == exercise_id)

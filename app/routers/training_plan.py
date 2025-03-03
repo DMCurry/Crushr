@@ -73,3 +73,13 @@ async def remove_item(
     user_id = current_user.get("id")
     plan = training_plan_service.remove_item(user_id, item)
     return TrainingPlanOutputSchema.model_validate(plan)
+
+
+@router.delete("")
+async def delete_plan(
+        training_plan_id: int,
+        current_user: dict = Depends(get_current_user),
+        training_plan_service: TrainingPlanService = Depends(get_training_plan_service)):
+    user_id = current_user.get("id")
+    training_plan_service.delete_plan(user_id, training_plan_id)
+    return

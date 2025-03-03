@@ -86,3 +86,14 @@ class TrainingPlanService(BaseService):
             plan.exercises.remove(remove_item)
         self.db.commit()
         return plan
+
+    def delete_plan(self, user_id, plan_id) -> None:
+        query = (select(TrainingPlan)
+                 .where(TrainingPlan.user_id == user_id)
+                 .where(TrainingPlan.id == plan_id)
+                 )
+        plan = self.db.execute(query).scalar_one_or_none()
+        if not plan:
+            raise status.HTTP_404_NOT_FOUND
+        self.db.delete(plan)
+        self.db.commit()
