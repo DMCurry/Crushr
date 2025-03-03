@@ -24,3 +24,9 @@ class UserAnalyticsSchema(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+class AnalyticsEntrySchema(BaseModel):
+    test_id: int
+    test_value: float
+    date: date
