@@ -1,6 +1,6 @@
 from typing import Optional, List, Any
 from datetime import date
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, Field, model_validator, validator, ValidationError
 from schemas.performance_test_schemas import PerformanceTestSchema
 
 
@@ -30,3 +30,11 @@ class AnalyticsEntrySchema(BaseModel):
     test_id: int
     test_value: float
     date: date
+
+    @validator("test_value")
+    def convert_to_float(cls, v):
+        try:
+            v = float(v)
+        except ValidationError as e:
+            return e
+        return v

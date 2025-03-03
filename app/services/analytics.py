@@ -17,12 +17,19 @@ class AnalyticsService(BaseService):
         return performance_tests
 
     def record_analytics_event(self, user_id: int, analytics_input: AnalyticsEntrySchema) -> Analytics:
-        analytics_event = Analytics(
-            performance_test_id = analytics_input.test_id,
-            performance_test_result = analytics_input.test_value,
-            user_id = user_id,
-            test_date = analytics_input.date
-        )
-        self.db.add(analytics_event)
+        query = (select(Analytics).where(Analytics.user_id == user_id)
+                 .where(Analytics.performance_test_id == analytics_input.test_id)
+                 .where(Analytics.test_date == analytics_input.date))
+        analytics = self.db.execute(query).scalars().one_or_none()
+        if analytics is not None:
+            analytics.performance_test_result = analytics_input.test_value
+        else:
+            analytics = Analytics(
+                performance_test_id = analytics_input.test_id,
+                performance_test_result = analytics_input.test_value,
+                user_id = user_id,
+                test_date = analytics_input.date
+            )
+            self.db.add(analytics)
         self.db.commit()
-        return analytics_event
+        return analytics
