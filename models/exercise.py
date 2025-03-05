@@ -26,7 +26,7 @@ class Exercise(Base):
         secondary=weekly_schedule_exercise,
         back_populates="exercises"
     )
-    training_plan: Mapped[List["TrainingPlan"]] = relationship(
+    training_plans: Mapped[List["TrainingPlan"]] = relationship(
         secondary=training_exercise,
         back_populates="exercises"
     )

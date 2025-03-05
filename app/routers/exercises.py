@@ -22,6 +22,17 @@ async def get_exercises(
     exercises = exercise_service.get_exercises(user_id)
     return exercises
 
+
+@router.get("/training-plans")
+async def get_exercise_training_plans(
+        exercise_id: int,
+        current_user: dict = Depends(get_current_user),
+        exercise_service: ExerciseService = Depends(get_exercise_service)):
+    user_id = current_user.get("id")
+    training_plans = exercise_service.get_exercise_training_plans(user_id, exercise_id)
+    return training_plans
+
+
 @router.post("")
 async def create_exercise(
         exercise_input: ExerciseSchema,

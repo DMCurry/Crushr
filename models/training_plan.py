@@ -19,5 +19,5 @@ class TrainingPlan(Base):
     performance_tests: Mapped[List["PerformanceTest"]] = relationship()
     exercises: Mapped[List["Exercise"]] = relationship(
         secondary=training_exercise,
-        back_populates="training_plan"
+        back_populates="training_plans"
     )

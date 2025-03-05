@@ -20,6 +20,14 @@ class ExerciseService(BaseService):
         user = self.db.execute(query).scalar_one_or_none()
         return user.exercises
 
+    def get_exercise_training_plans(self, user_id: int, exercise_id: int) -> Mapped[List]:
+        query = (select(Exercise)
+                 .where(Exercise.user_id == user_id)
+                 .where(Exercise.id == exercise_id)
+                 )
+        exercise = self.db.execute(query).scalar_one_or_none()
+        return exercise.training_plans
+
     def create_exercise(self, user_id: int, exercise_info: ExerciseSchema) -> Exercise:
         exercise = Exercise(
             exercise_name = exercise_info.exercise_name,
