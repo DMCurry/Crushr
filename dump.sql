@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 9.0.1, for macos14.7 (arm64)
+-- MySQL dump 10.13  Distrib 9.2.0, for macos14.7 (arm64)
 --
 -- Host: localhost    Database: mydb
 -- ------------------------------------------------------
--- Server version	9.0.1
+-- Server version	9.2.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -34,7 +34,7 @@ CREATE TABLE `alembic_version` (
 
 LOCK TABLES `alembic_version` WRITE;
 /*!40000 ALTER TABLE `alembic_version` DISABLE KEYS */;
-INSERT INTO `alembic_version` VALUES ('62aad929d98a');
+INSERT INTO `alembic_version` VALUES ('6826a46bf43a');
 /*!40000 ALTER TABLE `alembic_version` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -54,8 +54,8 @@ CREATE TABLE `analytics` (
   PRIMARY KEY (`id`),
   KEY `performance_test_id` (`performance_test_id`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `analytics_ibfk_1` FOREIGN KEY (`performance_test_id`) REFERENCES `performance_test` (`id`),
-  CONSTRAINT `analytics_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+  CONSTRAINT `analytics_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `analytics_ibfk_3` FOREIGN KEY (`performance_test_id`) REFERENCES `performance_test` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -291,4 +291,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-01 15:54:35
+-- Dump completed on 2025-03-05 14:08:40

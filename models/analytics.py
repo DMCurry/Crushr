@@ -10,6 +10,6 @@ class Analytics(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
-    performance_test_id: Mapped[int] = mapped_column(ForeignKey("performance_test.id"), nullable=False)
+    performance_test_id: Mapped[int] = mapped_column(ForeignKey("performance_test.id", ondelete="CASCADE"), nullable=False)
     performance_test_result: Mapped[float] = mapped_column(Float(2))
     test_date: Mapped[date] = mapped_column(Date())

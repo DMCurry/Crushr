@@ -40,3 +40,13 @@ async def update_performance_test(
     user_id = current_user.get("id")
     performance_test = performance_test_service.update_performance_test(user_id, performance_test_input.id, performance_test_input)
     return PerformanceTestSchema.model_validate(performance_test)
+
+
+@router.delete("")
+async def delete_performance_test(
+        test_id: int,
+        current_user: dict = Depends(get_current_user),
+        performance_test_service: PerformanceTestService = Depends(get_performance_test_service)):
+    user_id = current_user.get("id")
+    performance_test_service.delete_performance_test(user_id, test_id)
+    return

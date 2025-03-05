@@ -1,4 +1,5 @@
 from typing import List
+from fastapi import status
 from sqlalchemy import select
 from sqlalchemy.orm import Mapped
 from models.user import User
@@ -36,3 +37,14 @@ class PerformanceTestService(BaseService):
         performance_test.description = performance_test_info.description
         self.db.commit()
         return performance_test
+
+    def delete_performance_test(self, user_id: int, test_id: int) -> None:
+        query = (select(PerformanceTest)
+                 .where(PerformanceTest.user_id == user_id)
+                 .where(PerformanceTest.id == test_id)
+                 )
+        performance_test = self.db.execute(query).scalar_one_or_none()
+        if not performance_test:
+            raise status.HTTP_404_NOT_FOUND
+        self.db.delete(performance_test)
+        self.db.commit()
