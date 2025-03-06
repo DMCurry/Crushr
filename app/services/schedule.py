@@ -13,8 +13,7 @@ from schemas.schedule_schemas import WeeklyScheduleSchema
 class ScheduleService(BaseService):
 
     def get_schedule(self, user_id: int) -> dict:
-        query = select(WeeklySchedule).where(WeeklySchedule.user_id == user_id)
-        schedule = self.db.execute(query).scalars().all()
+        schedule = self.get_current_schedule(user_id)
         schedule_map = {}
         for row in schedule:
             day = row.day
@@ -39,6 +38,11 @@ class ScheduleService(BaseService):
                     }
                 )
         return schedule_map
+
+    def get_current_schedule(self, user_id: int):
+        query = select(WeeklySchedule).where(WeeklySchedule.user_id == user_id)
+        schedule = self.db.execute(query).scalars().all()
+        return schedule
 
     def get_scheduled_exercises(self, user_id: int) -> Mapped[list]:
         query = select(WeeklySchedule).where(WeeklySchedule.user_id == user_id)
@@ -83,3 +87,14 @@ class ScheduleService(BaseService):
                     day_schedule_row.performance_tests = performance_test_objects
             self.db.commit()
         return self.get_schedule(user_id)
+
+    def remove_non_training_plan_exercises(self, user_id: int):
+        schedule = self.get_current_schedule(user_id)
+        for row in schedule:
+            for exercise in list(row.exercises):
+                if len(exercise.training_plans) == 0:
+                    row.exercises.remove(exercise)
+            for performance_test in list(row.performance_tests):
+                if performance_test.training_plan is None:
+                    row.performance_tests.remove(performance_test)
+        self.db.commit()

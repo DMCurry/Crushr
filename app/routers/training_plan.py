@@ -1,5 +1,7 @@
 from fastapi import APIRouter, Depends
 from app.services.training_plan import TrainingPlanService
+from app.services.schedule import ScheduleService
+from app.routers.schedule import get_schedule_service
 from app.dependencies import get_current_user
 from app.dependencies import get_db
 from sqlalchemy.orm import Session
@@ -79,7 +81,9 @@ async def remove_item(
 async def delete_plan(
         training_plan_id: int,
         current_user: dict = Depends(get_current_user),
-        training_plan_service: TrainingPlanService = Depends(get_training_plan_service)):
+        training_plan_service: TrainingPlanService = Depends(get_training_plan_service),
+        schedule_service: ScheduleService = Depends(get_schedule_service)):
     user_id = current_user.get("id")
     training_plan_service.delete_plan(user_id, training_plan_id)
+    schedule_service.remove_non_training_plan_exercises(user_id)
     return
