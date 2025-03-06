@@ -19,7 +19,7 @@ class PerformanceTestService(BaseService):
         performance_test = PerformanceTest(
             test_name = performance_test_info.test_name,
             description = performance_test_info.description,
-            performance_value = performance_test_info.performance_value,
+            performance_value=1.0, # Currently not using this for anything but maybe in future?
             user_id = user_id
         )
         self.db.add(performance_test)
@@ -33,7 +33,7 @@ class PerformanceTestService(BaseService):
                  )
         performance_test = self.db.execute(query).scalar_one_or_none()
         performance_test.test_name = performance_test_info.test_name
-        performance_test.performance_value = performance_test_info.performance_value
+        #performance_test.performance_value = performance_test_info.performance_value
         performance_test.description = performance_test_info.description
         self.db.commit()
         return performance_test
