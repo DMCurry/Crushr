@@ -34,7 +34,7 @@ CREATE TABLE `alembic_version` (
 
 LOCK TABLES `alembic_version` WRITE;
 /*!40000 ALTER TABLE `alembic_version` DISABLE KEYS */;
-INSERT INTO `alembic_version` VALUES ('6826a46bf43a');
+INSERT INTO `alembic_version` VALUES ('65da41dc5c8e');
 /*!40000 ALTER TABLE `alembic_version` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -52,6 +52,7 @@ CREATE TABLE `analytics` (
   `performance_test_result` float NOT NULL,
   `test_date` date NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_test_date_performance_test` (`test_date`,`performance_test_id`),
   KEY `performance_test_id` (`performance_test_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `analytics_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
@@ -291,4 +292,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-05 14:08:40
+-- Dump completed on 2025-03-05 16:59:33

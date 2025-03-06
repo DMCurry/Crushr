@@ -1,4 +1,4 @@
-from sqlalchemy import ForeignKey, Float, Date
+from sqlalchemy import ForeignKey, Float, Date, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import date
 from typing import List
@@ -13,3 +13,7 @@ class Analytics(Base):
     performance_test_id: Mapped[int] = mapped_column(ForeignKey("performance_test.id", ondelete="CASCADE"), nullable=False)
     performance_test_result: Mapped[float] = mapped_column(Float(2))
     test_date: Mapped[date] = mapped_column(Date())
+
+    __table_args__ = (
+        UniqueConstraint("test_date", "performance_test_id", name="uq_test_date_performance_test"),
+    )
