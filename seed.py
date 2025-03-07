@@ -9,6 +9,7 @@ from models.analytics import Analytics
 from models.training_exercise import training_exercise
 from models.weekly_schedule_exercise import weekly_schedule_exercise
 from models.weekly_schedule_performance_test import weekly_schedule_performance_test
+from models.training_performance_test import training_performance_test
 from models.performance_test import PerformanceTest
 from models.training_plan import TrainingPlan
 from models.user import User, Base
@@ -55,6 +56,7 @@ if __name__ == "__main__":
         (path + "analytics.json", Analytics),
         (path + "weekly_schedule.json", WeeklySchedule),
         (path + "training_exercise.json", training_exercise),
+        (path + "training_performance_test.json", training_performance_test),
         (path + "weekly_schedule_exercise.json", weekly_schedule_exercise),
         (path + "weekly_schedule_performance_test.json", weekly_schedule_performance_test)
     ]

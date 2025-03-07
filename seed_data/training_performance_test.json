@@ -1,0 +1,14 @@
+[
+  {
+    "training_plan_id": 1,
+    "performance_test_id": 1
+  },
+  {
+    "training_plan_id": 2,
+    "performance_test_id": 2
+  },
+  {
+    "training_plan_id": 3,
+    "performance_test_id": 3
+  }
+]

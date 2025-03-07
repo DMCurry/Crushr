@@ -55,9 +55,9 @@ class TrainingPlanService(BaseService):
         plan_query = select(TrainingPlan).where(TrainingPlan.user_id == user_id).where(TrainingPlan.id == plan_id)
         plan = self.db.execute(plan_query).scalar_one_or_none()
         performance_test_query = select(PerformanceTest).where(PerformanceTest.id.in_(performance_test_ids))
-        performance_tests = self.db.execute(performance_test_query).scalars()
+        performance_tests = self.db.execute(performance_test_query).scalars().all()
 
-        plan.performance_tests = list(performance_tests)
+        plan.performance_tests = performance_tests
         self.db.commit()
         return plan
 

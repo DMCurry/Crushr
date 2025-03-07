@@ -95,6 +95,6 @@ class ScheduleService(BaseService):
                 if len(exercise.training_plans) == 0:
                     row.exercises.remove(exercise)
             for performance_test in list(row.performance_tests):
-                if performance_test.training_plan is None:
+                if len(performance_test.training_plans) == 0:
                     row.performance_tests.remove(performance_test)
         self.db.commit()

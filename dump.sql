@@ -34,7 +34,7 @@ CREATE TABLE `alembic_version` (
 
 LOCK TABLES `alembic_version` WRITE;
 /*!40000 ALTER TABLE `alembic_version` DISABLE KEYS */;
-INSERT INTO `alembic_version` VALUES ('65da41dc5c8e');
+INSERT INTO `alembic_version` VALUES ('9b560d371645');
 /*!40000 ALTER TABLE `alembic_version` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -109,12 +109,9 @@ CREATE TABLE `performance_test` (
   `test_name` varchar(30) NOT NULL,
   `performance_value` float NOT NULL,
   `description` text,
-  `training_plan_id` int DEFAULT NULL,
   `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `training_plan_id` (`training_plan_id`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `performance_test_ibfk_1` FOREIGN KEY (`training_plan_id`) REFERENCES `training_plan` (`id`),
   CONSTRAINT `performance_test_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -152,6 +149,32 @@ CREATE TABLE `training_exercise` (
 LOCK TABLES `training_exercise` WRITE;
 /*!40000 ALTER TABLE `training_exercise` DISABLE KEYS */;
 /*!40000 ALTER TABLE `training_exercise` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `training_performance_test`
+--
+
+DROP TABLE IF EXISTS `training_performance_test`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `training_performance_test` (
+  `training_plan_id` int NOT NULL,
+  `performance_test_id` int NOT NULL,
+  PRIMARY KEY (`training_plan_id`,`performance_test_id`),
+  KEY `performance_test_id` (`performance_test_id`),
+  CONSTRAINT `training_performance_test_ibfk_1` FOREIGN KEY (`performance_test_id`) REFERENCES `performance_test` (`id`),
+  CONSTRAINT `training_performance_test_ibfk_2` FOREIGN KEY (`training_plan_id`) REFERENCES `training_plan` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `training_performance_test`
+--
+
+LOCK TABLES `training_performance_test` WRITE;
+/*!40000 ALTER TABLE `training_performance_test` DISABLE KEYS */;
+/*!40000 ALTER TABLE `training_performance_test` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -292,4 +315,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-05 16:59:33
+-- Dump completed on 2025-03-06 17:34:26
