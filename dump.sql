@@ -34,7 +34,7 @@ CREATE TABLE `alembic_version` (
 
 LOCK TABLES `alembic_version` WRITE;
 /*!40000 ALTER TABLE `alembic_version` DISABLE KEYS */;
-INSERT INTO `alembic_version` VALUES ('9b560d371645');
+INSERT INTO `alembic_version` VALUES ('3f6904f16631');
 /*!40000 ALTER TABLE `alembic_version` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -82,6 +82,7 @@ CREATE TABLE `exercise` (
   `description` text,
   `reps` int NOT NULL,
   `user_id` int NOT NULL,
+  `sets` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `exercise_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
@@ -315,4 +316,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-06 17:34:26
+-- Dump completed on 2025-03-07 19:23:26

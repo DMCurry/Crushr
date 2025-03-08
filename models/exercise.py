@@ -21,6 +21,7 @@ class Exercise(Base):
     exercise_name: Mapped[str] = mapped_column(String(30), nullable=False)
     description: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     reps: Mapped[int] = mapped_column(Integer, nullable=False)
+    sets: Mapped[int] = mapped_column(Integer, nullable=False)
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
     weekly_schedule_days: Mapped[List["WeeklySchedule"]] = relationship(
         secondary=weekly_schedule_exercise,

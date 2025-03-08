@@ -3,6 +3,7 @@
     "id": 1,
     "description": "Push-up exercise for chest and triceps.",
     "reps": 15,
+    "sets": 2,
     "exercise_name": "Push-Up",
      "user_id": 1001
   },
@@ -10,6 +11,7 @@
     "id": 2,
     "description": "Sit-ups for abdominal muscles.",
     "reps": 20,
+    "sets": 2,
     "exercise_name": "Sit-Up",
     "user_id": 1001
   },
@@ -17,6 +19,7 @@
     "id": 3,
     "description": "Pull-ups for back and biceps.",
     "reps": 10,
+    "sets": 2,
     "exercise_name": "Pull-Up",
     "user_id": 1001
   },
@@ -24,6 +27,7 @@
     "id": 4,
     "description": "Squats for legs and glutes.",
     "reps": 12,
+    "sets": 2,
     "exercise_name": "Squat",
     "user_id": 1001
   },
@@ -31,6 +35,7 @@
     "id": 5,
     "description": "Lunges for legs and balance.",
     "reps": 10,
+    "sets": 2,
     "exercise_name": "Lunge",
     "user_id": 1002
   },
@@ -38,6 +43,7 @@
     "id": 6,
     "description": "Bicep curls for arm strength.",
     "reps": 15,
+    "sets": 2,
     "exercise_name": "Bicep Curl",
     "user_id": 1001
   },
@@ -45,6 +51,7 @@
     "id": 7,
     "description": "Tricep dips for arm toning.",
     "reps": 12,
+    "sets": 2,
     "exercise_name": "Tricep Dip",
     "user_id": 1002
   },
@@ -52,6 +59,7 @@
     "id": 8,
     "description": "Plank for core stability.",
     "reps": 1,
+    "sets": 2,
     "exercise_name": "Plank",
     "user_id": 1002
   },
@@ -59,6 +67,7 @@
     "id": 9,
     "description": "Mountain climbers for cardio.",
     "reps": 20,
+    "sets": 2,
     "exercise_name": "Mountain Climber",
     "user_id": 1001
   },
@@ -66,6 +75,7 @@
     "id": 10,
     "description": "Burpees for full-body workout.",
     "reps": 10,
+    "sets": 2,
     "exercise_name": "Burpee",
     "user_id": 1003
   },
@@ -73,6 +83,7 @@
     "id": 11,
     "description": "Deadlifts for back and leg strength.",
     "reps": 8,
+    "sets": 2,
     "exercise_name": "Deadlift",
     "user_id": 1001
   },
@@ -80,6 +91,7 @@
     "id": 12,
     "description": "Overhead press for shoulders.",
     "reps": 12,
+    "sets": 2,
     "exercise_name": "Overhead Press",
     "user_id": 1001
   },
@@ -87,6 +99,7 @@
     "id": 13,
     "description": "Crunches for abs.",
     "reps": 15,
+    "sets": 2,
     "exercise_name": "Crunch",
     "user_id": 1002
   },
@@ -94,6 +107,7 @@
     "id": 14,
     "description": "Step-ups for legs and cardio.",
     "reps": 10,
+    "sets": 2,
     "exercise_name": "Step-Up",
     "user_id": 1001
   },
@@ -101,6 +115,7 @@
     "id": 15,
     "description": "Russian twists for obliques.",
     "reps": 20,
+    "sets": 2,
     "exercise_name": "Russian Twist",
     "user_id": 1001
   },
@@ -108,6 +123,7 @@
     "id": 16,
     "description": "Calf raises for lower legs.",
     "reps": 15,
+    "sets": 2,
     "exercise_name": "Calf Raise",
     "user_id": 1002
   },
@@ -115,6 +131,7 @@
     "id": 17,
     "description": "Leg raises for lower abs.",
     "reps": 12,
+    "sets": 2,
     "exercise_name": "Leg Raise",
     "user_id": 1002
   },
@@ -122,6 +139,7 @@
     "id": 18,
     "description": "Bench press for chest.",
     "reps": 10,
+    "sets": 2,
     "exercise_name": "Bench Press",
     "user_id": 1001
   },
@@ -129,6 +147,7 @@
     "id": 19,
     "description": "Dumbbell rows for back.",
     "reps": 10,
+    "sets": 2,
     "exercise_name": "Dumbbell Row",
     "user_id": 1002
   },
@@ -136,6 +155,7 @@
     "id": 20,
     "description": "Jumping jacks for warm-up.",
     "reps": 30,
+    "sets": 2,
     "exercise_name": "Jumping Jack",
     "user_id": 1003
   }
