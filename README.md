@@ -1,6 +1,12 @@
 # Crushr
 A customizable workout planning and training tool
 
+# Running with Docker  
+You can go to the crushr-infra repo (https://github.com/DMCurry/crushr-infra)  
+and follow the instructions there. Other than that migrations will be the same  
+(but it's crucial that you make a new dump file correctly after the migration)  
+and seeding the db will be similar but both of these things will first require   
+logging into the running Crushr back end container with `docker exec -it fastapi-backend sh`  
 
 # Project Local Setup
 
