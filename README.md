@@ -7,6 +7,8 @@ and follow the instructions there. Other than that migrations will be the same
 (but it's crucial that you make a new dump file correctly after the migration)  
 and seeding the db will be similar but both of these things will first require   
 logging into the running Crushr back end container with `docker exec -it fastapi-backend sh`  
+Also. If switching back from docker to running local/normally, you might need to switch  
+the mysql DATABASE_URL in your `.env` file. 
 
 # Project Local Setup
 
