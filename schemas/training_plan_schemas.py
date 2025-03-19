@@ -1,8 +1,8 @@
 from pydantic import BaseModel
 from typing import List
 from utilities import ItemType
-from schemas.exercise_schemas import ExerciseSchema
-from schemas.performance_test_schemas import PerformanceTestSchema
+from schemas.exercise_schemas import ExerciseSchemaWithID
+from schemas.performance_test_schemas import PerformanceTestSchemaWithID
 
 
 class RemoveItemSchema(BaseModel):
@@ -27,9 +27,12 @@ class UpdatePlanInputSchema(CreatePlanInputSchema):
 class TrainingPlanOutputSchema(BaseModel):
     plan_name: str
     id: int
-    exercises: List[ExerciseSchema]
-    performance_tests: List[PerformanceTestSchema]
+    exercises: List[ExerciseSchemaWithID]
+    performance_tests: List[PerformanceTestSchemaWithID]
 
     class Config:
         from_attributes = True
 
+
+class TrainingPlansOutputSchema(BaseModel):
+    plans: List[TrainingPlanOutputSchema]

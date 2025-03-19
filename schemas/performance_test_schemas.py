@@ -7,5 +7,8 @@ class PerformanceTestSchema(BaseModel):
     class Config:
         from_attributes = True
 
-class PerformanceTestUpdateSchema(PerformanceTestSchema):
+class PerformanceTestSchemaWithID(PerformanceTestSchema):
     id: int
+
+    class Config:
+        from_attributes = True

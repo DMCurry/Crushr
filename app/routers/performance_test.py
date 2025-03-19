@@ -4,7 +4,7 @@ from app.services.performance_test import PerformanceTestService
 from app.dependencies import get_current_user
 from app.dependencies import get_db
 from sqlalchemy.orm import Session
-from schemas.performance_test_schemas import PerformanceTestSchema, PerformanceTestUpdateSchema
+from schemas.performance_test_schemas import PerformanceTestSchema, PerformanceTestSchemaWithID
 
 
 router = APIRouter(prefix="/performance-tests", tags=["performance_tests"])
@@ -34,7 +34,7 @@ async def create_performance_test(
 
 @router.put("")
 async def update_performance_test(
-        performance_test_input: PerformanceTestUpdateSchema,
+        performance_test_input: PerformanceTestSchemaWithID,
         current_user: dict = Depends(get_current_user),
         performance_test_service: PerformanceTestService = Depends(get_performance_test_service)) -> PerformanceTestSchema:
     user_id = current_user.get("id")

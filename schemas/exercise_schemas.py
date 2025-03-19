@@ -9,5 +9,8 @@ class ExerciseSchema(BaseModel):
     class Config:
         from_attributes = True
 
-class ExerciseUpdateSchema(ExerciseSchema):
+class ExerciseSchemaWithID(ExerciseSchema):
     id: int
+
+    class Config:
+        from_attributes = True

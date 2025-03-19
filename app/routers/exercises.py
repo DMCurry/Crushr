@@ -4,7 +4,7 @@ from app.services.exercise import ExerciseService
 from app.dependencies import get_current_user
 from app.dependencies import get_db
 from sqlalchemy.orm import Session
-from schemas.exercise_schemas import ExerciseSchema, ExerciseUpdateSchema
+from schemas.exercise_schemas import ExerciseSchema, ExerciseSchemaWithID
 
 
 router = APIRouter(prefix="/exercises", tags=["exercises"])
@@ -45,7 +45,7 @@ async def create_exercise(
 
 @router.put("")
 async def update_exercise(
-        exercise_input: ExerciseUpdateSchema,
+        exercise_input: ExerciseSchemaWithID,
         current_user: dict = Depends(get_current_user),
         exercise_service: ExerciseService = Depends(get_exercise_service)) -> ExerciseSchema:
     user_id = current_user.get("id")

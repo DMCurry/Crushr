@@ -6,7 +6,7 @@ from app.dependencies import get_current_user
 from app.dependencies import get_db
 from sqlalchemy.orm import Session
 from schemas.training_plan_schemas import (
-    AddItemsInputSchema, CreatePlanInputSchema, UpdatePlanInputSchema, RemoveItemSchema, TrainingPlanOutputSchema
+    AddItemsInputSchema, CreatePlanInputSchema, UpdatePlanInputSchema, RemoveItemSchema, TrainingPlanOutputSchema, TrainingPlansOutputSchema
 )
 
 router = APIRouter(prefix="/training-plan", tags=["training_plan"])
@@ -22,7 +22,7 @@ async def get_training_plans(
         training_plan_service: TrainingPlanService = Depends(get_training_plan_service)):
     user_id = current_user.get("id")
     training_plans = training_plan_service.get_plans(user_id)
-    return training_plans
+    return TrainingPlansOutputSchema.model_validate(training_plans)
 
 
 @router.post("")

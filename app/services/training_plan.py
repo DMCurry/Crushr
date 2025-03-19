@@ -15,10 +15,10 @@ class TrainingPlanService(BaseService):
     def get_plan(self, plan_id: int) -> Mapped[TrainingPlan]:
         pass
 
-    def get_plans(self, user_id) -> Sequence[TrainingPlan]:
+    def get_plans(self, user_id) -> dict:
         query = select(TrainingPlan).options(joinedload(TrainingPlan.exercises), joinedload(TrainingPlan.performance_tests)).where(TrainingPlan.user_id == user_id)
         plans = self.db.execute(query).unique().scalars().all()
-        return plans
+        return {"plans": plans}
 
     def create_plan(self, user_id: int, plan_name: str) -> TrainingPlan:
         training_plan = TrainingPlan(
@@ -56,8 +56,8 @@ class TrainingPlanService(BaseService):
         plan = self.db.execute(plan_query).scalar_one_or_none()
         performance_test_query = select(PerformanceTest).where(PerformanceTest.id.in_(performance_test_ids))
         performance_tests = self.db.execute(performance_test_query).scalars().all()
-
-        plan.performance_tests = performance_tests
+        new_performance_tests = plan.performance_tests + performance_tests
+        plan.performance_tests = new_performance_tests
         self.db.commit()
         return plan
 
