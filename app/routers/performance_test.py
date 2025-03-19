@@ -1,5 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
-from fastapi.params import Query
+from fastapi import APIRouter, Depends
 from app.services.performance_test import PerformanceTestService
 from app.dependencies import get_current_user
 from app.dependencies import get_db

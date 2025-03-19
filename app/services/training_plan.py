@@ -1,12 +1,10 @@
-from typing import List, Sequence
-from sqlalchemy import select, ScalarResult
+from typing import List
+from sqlalchemy import select
 from sqlalchemy.orm import Mapped, joinedload
 from fastapi import status, HTTPException
 from models import Exercise, PerformanceTest
 from models.training_plan import TrainingPlan
 from app.services.base import BaseService
-from itertools import chain
-from models.user import User
 from utilities import ItemType
 
 
