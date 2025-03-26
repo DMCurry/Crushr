@@ -38,6 +38,7 @@ def login(
         key="access_token",
         value=access_token,
         httponly=True,
+        samesite='Lax',
         secure=False,  # Set to True in production for HTTPS
         max_age=3600,  # Token expiration in seconds
     )
