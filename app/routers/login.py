@@ -38,8 +38,8 @@ def login(
         key="access_token",
         value=access_token,
         httponly=True,
-        samesite='Lax',
-        secure=False,  # Set to True in production for HTTPS
+        samesite='None', # If not using https set this to 'Lax'
+        secure=True,  # Set to True in production for HTTPS
         max_age=3600,  # Token expiration in seconds
     )
     return response
