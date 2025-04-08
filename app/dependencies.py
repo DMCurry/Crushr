@@ -1,12 +1,14 @@
 import os
 from dotenv import load_dotenv
 from fastapi.params import Cookie
-from fastapi.security import OAuth2PasswordBearer
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi import Depends, HTTPException, status
 from jose import jwt, JWTError
 from sqlalchemy.orm import Session
 from app.core.db import SessionLocal
 from typing import Generator
+
+security = HTTPBearer(auto_error=False)
 
 # Secret and algorithm for decoding the token
 SECRET_KEY = os.getenv("SECRET_KEY")
@@ -25,18 +27,25 @@ def decode_and_verify_token(token: str):
     except JWTError as e:
         raise ValueError(f"Invalid token: {str(e)}")
 
-def get_current_user(access_token: str = Cookie(None)):
+def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security),
+                     access_token: str = Cookie(None)):
     """
     Dependency to retrieve the current user based on the JWT.
     """
-    if access_token is None:
+    token = None
+    if credentials:
+        token = credentials.credentials
+    elif access_token:
+        token = access_token
+
+    if token is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid token: missing token",
             headers={"WWW-Authenticate": "Bearer"},
         )
     try:
-        payload = decode_and_verify_token(access_token)
+        payload = decode_and_verify_token(token)
         user_id = payload.get("sub")
         if user_id is None:
             raise HTTPException(

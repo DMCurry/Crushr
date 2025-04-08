@@ -33,7 +33,7 @@ def login(
     access_token = login_service.create_access_token(
         data={"sub": str(user.id)}
     )
-    response = JSONResponse(content={"message": "Login successful"})
+    response = JSONResponse(content={"message": "Login successful", "access_token": access_token})
     response.set_cookie(
         key="access_token",
         value=access_token,
