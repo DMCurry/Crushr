@@ -6,8 +6,8 @@ class ScheduleExerciseSchema(BaseModel):
     exercise_name: str
     exercise_reps: int
     exercise_sets: int
-    exercise_link: str
     exercise_description: str
+    exercise_link: Optional[str] = None
 
 class SchedulePerformanceTestSchema(BaseModel):
     performance_test_id: int
