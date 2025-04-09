@@ -34,6 +34,7 @@ class ExerciseService(BaseService):
             description = exercise_info.description,
             reps = exercise_info.reps,
             sets = exercise_info.sets,
+            link = exercise_info.link,
             user_id = user_id
         )
         self.db.add(exercise)
@@ -49,6 +50,7 @@ class ExerciseService(BaseService):
         exercise.exercise_name = exercise_info.exercise_name
         exercise.reps = exercise_info.reps
         exercise.sets = exercise_info.sets
+        exercise.link = exercise_info.link
         exercise.description = exercise_info.description
         self.db.commit()
         return exercise

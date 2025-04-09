@@ -26,6 +26,7 @@ class ScheduleService(BaseService):
                         "exercise_name": exercise.exercise_name,
                         "exercise_reps": exercise.reps,
                         "exercise_sets": exercise.sets,
+                        "exercise_link": exercise.link,
                         "exercise_description": exercise.description
                     }
                 )

@@ -6,6 +6,7 @@ class ScheduleExerciseSchema(BaseModel):
     exercise_name: str
     exercise_reps: int
     exercise_sets: int
+    exercise_link: str
     exercise_description: str
 
 class SchedulePerformanceTestSchema(BaseModel):
