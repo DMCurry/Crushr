@@ -1,3 +1,4 @@
+import logging
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.params import Query
 from app.services.exercise import ExerciseService
@@ -6,9 +7,9 @@ from app.dependencies import get_db
 from sqlalchemy.orm import Session
 from schemas.exercise_schemas import ExerciseSchema, ExerciseSchemaWithID
 
-
 router = APIRouter(prefix="/exercises", tags=["exercises"])
 
+logger = logging.getLogger(__name__)
 
 def get_exercise_service(db: Session = Depends(get_db)):
     return ExerciseService(db=db)

@@ -1,4 +1,16 @@
 import uvicorn
+import logging
+import sys
+
+# Send all DEBUG+ logs to stdout in a simple format
+logging.basicConfig(
+    level=logging.DEBUG,
+    stream=sys.stdout,
+    format="%(asctime)s %(levelname)s %(name)s: %(message)s",
+)
+
+logging.getLogger("uvicorn").setLevel(logging.DEBUG)
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routers import users, exercises, login, logout, check_auth, training_plan, schedule, performance_test, analytics
@@ -77,3 +89,9 @@ async def startup_event():
 @app.get("/")
 async def root():
     return {"message": "testing app ok"}
+
+@app.middleware("http")
+async def log_every_request(request, call_next):
+    print("🔥 got request:", request.method, request.url.path)
+    return await call_next(request)
+
