@@ -1,5 +1,5 @@
 # Crushr
-A customizable workout planning and training tool
+A customizable workout planning and training tool (THIS IS JUST A FUN TOY PROJECT AND CAN ALSO BE SOMETHING TO LEARN WITH. PLEASE MAKE SURE TO PROPERLY SECURE ANY DEPLOYED INSTANCES).  
 
 # Running with Docker  
 You can go to the crushr-infra repo (https://github.com/DMCurry/crushr-infra)  
