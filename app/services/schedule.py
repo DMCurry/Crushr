@@ -68,12 +68,12 @@ class ScheduleService(BaseService):
             else:
                 #  Get exercises objects
                 exercise_ids = [exercise.get("exercise_id") for exercise in exercises]
-                exercises_query = select(Exercise).where(Exercise.id.in_(exercise_ids))
+                exercises_query = select(Exercise).where(Exercise.user_id == user_id, Exercise.id.in_(exercise_ids))
                 exercise_objects = self.db.execute(exercises_query).scalars().all()
 
                 # Get performance_test objects
                 performance_test_ids = [performance_test.get("performance_test_id") for performance_test in performance_tests]
-                performance_test_query = select(PerformanceTest).where(PerformanceTest.id.in_(performance_test_ids))
+                performance_test_query = select(PerformanceTest).where(PerformanceTest.user_id == user_id, PerformanceTest.id.in_(performance_test_ids))
                 performance_test_objects = self.db.execute(performance_test_query).scalars().all()
 
                 if not has_day_schedule:

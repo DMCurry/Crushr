@@ -42,7 +42,7 @@ class TrainingPlanService(BaseService):
     def add_exercises_to_plan(self, user_id: int, plan_id: int, exercise_ids: List[int]) -> TrainingPlan:
         plan_query = select(TrainingPlan).where(TrainingPlan.user_id == user_id).where(TrainingPlan.id == plan_id)
         plan = self.db.execute(plan_query).scalar_one_or_none()
-        exercise_query = select(Exercise).where(Exercise.id.in_(exercise_ids))
+        exercise_query = select(Exercise).where(Exercise.user_id == user_id, Exercise.id.in_(exercise_ids))
         exercises = self.db.execute(exercise_query).scalars().all()
 
         plan.exercises = exercises
@@ -52,7 +52,7 @@ class TrainingPlanService(BaseService):
     def add_performance_tests_to_plan(self, user_id: int, plan_id: int, performance_test_ids: List[int]) -> TrainingPlan:
         plan_query = select(TrainingPlan).where(TrainingPlan.user_id == user_id).where(TrainingPlan.id == plan_id)
         plan = self.db.execute(plan_query).scalar_one_or_none()
-        performance_test_query = select(PerformanceTest).where(PerformanceTest.id.in_(performance_test_ids))
+        performance_test_query = select(PerformanceTest).where(PerformanceTest.user_id == user_id, PerformanceTest.id.in_(performance_test_ids))
         performance_tests = self.db.execute(performance_test_query).scalars().all()
         new_performance_tests = plan.performance_tests + performance_tests
         plan.performance_tests = new_performance_tests

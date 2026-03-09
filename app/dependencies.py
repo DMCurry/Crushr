@@ -12,6 +12,8 @@ security = HTTPBearer(auto_error=False)
 
 # Secret and algorithm for decoding the token
 SECRET_KEY = os.getenv("SECRET_KEY")
+if not SECRET_KEY:
+    raise RuntimeError("SECRET_KEY environment variable must be set")
 ALGORITHM = os.getenv("ALGORITHM", "HS256")
 
 # Define OAuth2PasswordBearer

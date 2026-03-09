@@ -10,10 +10,11 @@ router = APIRouter(prefix="/users", tags=["users"])
 def get_user_service(db: Session = Depends(get_db)):
     return UserService(db=db)
 
-@router.get("")
-async def get_user(username: str, user_service: UserService = Depends(get_user_service)):
-    user = user_service.get_user(username)
-    return user
+# IF USING THIS MAKE SURE TO ADD A DEPENDENCY INJECTION TO VALIDATE USER AUTH
+# @router.get("")
+# async def get_user(username: str,  user_service: UserService = Depends(get_user_service)):
+#     user = user_service.get_user(username)
+#     return user
 
 
 @router.post("")
