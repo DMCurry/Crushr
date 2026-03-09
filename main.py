@@ -32,7 +32,6 @@ origins = [
     "http://localhost:5173",
     "http://crushr.org",
     "http://www.crushr.org",
-    "http://143.198.235.252",
 ]
 
 # Add the CORS middleware
